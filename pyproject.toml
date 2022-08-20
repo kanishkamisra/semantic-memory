@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "semantic-memory"
-version = "0.1.0"
+version = "0.1.1"
 readme = "README.md"
 homepage = "https://github.com/kanishkamisra/semantic-memory"
 repository = "https://github.com/kanishkamisra/semantic-memory"
@@ -9,10 +9,10 @@ authors = ["Kanishka Misra <kanishka.replies@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.7.2,<3.11"
 torch = "^1.12.1"
 nltk = "^3.7"
-numpy = "^1.23.2"
+numpy = "^1.21.6"
 inflect = "^6.0.0"
 
 [tool.poetry.dev-dependencies]

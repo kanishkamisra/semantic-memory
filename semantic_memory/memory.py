@@ -148,7 +148,7 @@ class Memory(object):
                     and instance["category"] != "reading"
                 ):
                     try:
-                        item = wn.synset_from_sense_key(instance["sensekey"])
+                        item = wn.lemma_from_key(instance['sensekey']).synset()
                         self.lexicon[instance["concept"]] = Concept(
                             instance["concept"],
                             instance["category"],
@@ -156,7 +156,7 @@ class Memory(object):
                             instance["article"].replace("_", " "),
                         )
                         # self.concepts.append(instance['concept'])
-                    except:
+                    except (NameError, ValueError):
                         print(f"Incorrect synset: {instance}")
                     paths = [p for p in item.hypernym_paths() if root in p]
 
