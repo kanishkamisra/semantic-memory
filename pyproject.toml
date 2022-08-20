@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "semantic-memory"
+version = "0.1.0"
+readme = "README.md"
+homepage = "https://github.com/kanishkamisra/semantic-memory"
+repository = "https://github.com/kanishkamisra/semantic-memory"
+description = "A utility package to create semantic memories consisting of concepts, properties, categorical organization, and vector spaces."
+authors = ["Kanishka Misra <kanishka.replies@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+torch = "^1.12.1"
+nltk = "^3.7"
+numpy = "^1.23.2"
+
+[tool.poetry.dev-dependencies]
+notebook = "^6.4.12"
+pytest = "^7.1.2"
+pylint = "^2.14.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
