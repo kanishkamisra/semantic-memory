@@ -1,4 +1,4 @@
-"""semantic memory"""
+"""Semantic Memory"""
 
 import csv
 import inflect
@@ -34,6 +34,7 @@ class Feature:
 
     feature: str
     feature_type: str
+    negation: str
 
 
 class Memory(object):
@@ -97,7 +98,9 @@ class Memory(object):
             reader = csv.DictReader(f)
             for line in reader:
                 self.feature_lexicon[line["phrase"]] = Feature(
-                    feature=line["phrase"], feature_type=line["feature_type"]
+                    feature=line["phrase"],
+                    feature_type=line["feature_type"],
+                    negation=line["negation"],
                 )
 
         with open(self.feature_path, "r") as f:
@@ -148,7 +151,7 @@ class Memory(object):
                     and instance["category"] != "reading"
                 ):
                     try:
-                        item = wn.lemma_from_key(instance['sensekey']).synset()
+                        item = wn.lemma_from_key(instance["sensekey"]).synset()
                         self.lexicon[instance["concept"]] = Concept(
                             instance["concept"],
                             instance["category"],
