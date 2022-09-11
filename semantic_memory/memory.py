@@ -92,13 +92,13 @@ class Memory(object):
         features = []
         concept_features = defaultdict(set)
         self.feature_lexicon = defaultdict(Feature)
-        categories = {}
+        categories = defaultdict(list)
 
         with open(self.feature_metadata, "r") as f:
             reader = csv.DictReader(f)
             for line in reader:
-                self.feature_lexicon[line["phrase"]] = Feature(
-                    feature=line["phrase"],
+                self.feature_lexicon[line["feature"]] = Feature(
+                    feature=line["feature"],
                     feature_type=line["feature_type"],
                     negation=line["negation"],
                 )
@@ -109,7 +109,7 @@ class Memory(object):
             for line in reader:
                 concepts.append(line["concept"])
                 features.append(line["feature"])
-                categories[line["concept"]] = line["category"]
+                categories[line["category"]].append(line["concept"])
 
                 concept_features[line["concept"]].add(line["feature"])
 
@@ -130,6 +130,7 @@ class Memory(object):
         concept_features.default_factory = None
         feature_space.default_factory = None
         self.feature_lexicon.default_factory = None
+        categories.default_factory = None
 
         return feature_space, concept_features, features, concepts, categories
 
