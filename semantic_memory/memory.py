@@ -46,7 +46,7 @@ class Memory(object):
         self.feature_metadata = feature_metadata
         self.concepts: list = []
         self.features: list = []
-        self.categories: dict = {}
+        self.categories = defaultdict(list)
         self.lexicon: dict = None
         self.taxonomy = None
         self.concept_features: dict = None
@@ -92,7 +92,7 @@ class Memory(object):
         features = []
         concept_features = defaultdict(set)
         self.feature_lexicon = defaultdict(Feature)
-        categories = defaultdict(list)
+        # categories = defaultdict(list)
 
         with open(self.feature_metadata, "r") as f:
             reader = csv.DictReader(f)
@@ -109,7 +109,7 @@ class Memory(object):
             for line in reader:
                 concepts.append(line["concept"])
                 features.append(line["feature"])
-                categories[line["category"]].append(line["concept"])
+                # categories[line["category"]].append(line["concept"])
 
                 concept_features[line["concept"]].add(line["feature"])
 
@@ -130,9 +130,9 @@ class Memory(object):
         concept_features.default_factory = None
         feature_space.default_factory = None
         self.feature_lexicon.default_factory = None
-        categories.default_factory = None
+        # categories.default_factory = None
 
-        return feature_space, concept_features, features, concepts, categories
+        return feature_space, concept_features, features, concepts
 
     def load_taxonomy(self):
         """
@@ -159,6 +159,7 @@ class Memory(object):
                             item.name(),
                             instance["article"].replace("_", " "),
                         )
+                        self.categories[instance['category']].append(instance['concept'])
                         # self.concepts.append(instance['concept'])
                     except (NameError, ValueError):
                         print(f"Incorrect synset: {instance}")
@@ -184,6 +185,7 @@ class Memory(object):
 
         Taxonomy.default_factory = None
         self.lexicon.default_factory = None
+        self.categories.default_factory = None
 
         return Taxonomy
 

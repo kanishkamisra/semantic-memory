@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "semantic-memory"
-version = "0.1.4"
+version = "0.1.5"
 readme = "README.md"
 homepage = "https://github.com/kanishkamisra/semantic-memory"
 repository = "https://github.com/kanishkamisra/semantic-memory"
