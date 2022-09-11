@@ -60,8 +60,7 @@ class Memory(object):
             self.feature_space,
             self.concept_features,
             self.features,
-            self.concepts,
-            self.categories,
+            self.concepts
         ) = self.load_features()
         self.vectors = self.load_vectors()
 
