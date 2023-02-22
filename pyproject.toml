@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "semantic-memory"
-version = "0.1.6"
+version = "0.1.7"
 readme = "README.md"
 homepage = "https://github.com/kanishkamisra/semantic-memory"
 repository = "https://github.com/kanishkamisra/semantic-memory"
@@ -19,6 +19,7 @@ inflect = "^6.0.0"
 notebook = "^6.4.12"
 pytest = "^7.1.2"
 pylint = "^2.14.5"
+black = "^23.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -39,7 +39,6 @@ class Feature:
 
 class Memory(object):
     def __init__(self, concept_path, feature_path, matrix_path, feature_metadata):
-
         self.concept_path = concept_path
         self.feature_path = feature_path
         self.matrix_path = matrix_path
@@ -60,7 +59,7 @@ class Memory(object):
             self.feature_space,
             self.concept_features,
             self.features,
-            self.concepts
+            self.concepts,
         ) = self.load_features()
         self.vectors = self.load_vectors()
 
@@ -158,7 +157,9 @@ class Memory(object):
                             item.name(),
                             instance["article"].replace("_", " "),
                         )
-                        self.categories[instance['category']].append(instance['concept'])
+                        self.categories[instance["category"]].append(
+                            instance["concept"]
+                        )
                         # self.concepts.append(instance['concept'])
                     except (NameError, ValueError):
                         print(f"Incorrect synset: {instance}")

@@ -1,8 +1,7 @@
 """Create a taxonomic organization"""
 from collections import defaultdict
-from .list_utils import intersect
-
 from typing import Iterable
+from .list_utils import intersect
 
 
 class Node:
@@ -17,11 +16,13 @@ class Node:
         return f"Node {self.value}\nParent:{self.parent.value if self.parent is not None else None}\nChildren: {[c.value for c in self.children]}"
 
     def add_child(self, value) -> None:
+        """Track children nodes of current node."""
         if value not in self.children:
             self.children.append(value)
             value.add_parent(self)
 
     def add_parent(self, value) -> None:
+        """Add a parent node connection."""
         if self.parent is None:
             self.parent = value
 
@@ -37,6 +38,7 @@ class Node:
         return toroot
 
     def ancestors(self):
+        """Recursively lists parents of the current node upto the root."""
         if self.parent is None:
             return []
         else:
@@ -44,6 +46,7 @@ class Node:
             return path
 
     def get_leaves(self):
+        """Returns the leaf nodes of the subtree with current node as the root."""
         if not self.children:
             yield self
         for child in self.children:

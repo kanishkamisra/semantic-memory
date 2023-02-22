@@ -3,8 +3,13 @@ from typing import Iterable, List
 
 
 def intersect(lists: Iterable):
-    """Intersection between arbitrary number of lists"""
+    """Intersection between arbitrary number of lists."""
     return sorted(set.intersection(*map(set, lists)), key=lists[0].index)
+
+
+def union(lists: Iterable):
+    """Union between arbitrary number of lists."""
+    return set.union(*map(set, lists))
 
 
 def argmin(lst: List) -> int:
