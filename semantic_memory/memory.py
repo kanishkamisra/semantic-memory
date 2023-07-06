@@ -1,15 +1,15 @@
 """Semantic Memory"""
 
 import csv
-import inflect
 import itertools
-import torch
-
-from . import vsm, taxonomy, list_utils, vsm_utils
-from nltk.corpus import wordnet as wn
-
 from collections import defaultdict
 from dataclasses import dataclass, field
+
+import inflect
+import torch
+
+from nltk.corpus import wordnet as wn
+from . import vsm, taxonomy, list_utils, vsm_utils
 
 engine = inflect.engine()
 
@@ -35,6 +35,7 @@ class Feature:
     feature: str
     feature_type: str
     negation: str
+    pluralized: str
 
 
 class Memory(object):
@@ -52,6 +53,8 @@ class Memory(object):
         self.feature_space: dict = None
         self.vectors: torch.Tensor = None
         self.feature_lexicon: dict = None
+        self.c2i: dict = None
+        self.f2i: dict = None
 
     def create(self):
         self.taxonomy = self.load_taxonomy()
@@ -99,6 +102,7 @@ class Memory(object):
                     feature=line["feature"],
                     feature_type=line["feature_type"],
                     negation=line["negation"],
+                    pluralized=line["pluralized"],
                 )
 
         with open(self.feature_path, "r") as f:
@@ -113,6 +117,9 @@ class Memory(object):
 
         concepts = sorted(list(set(concepts)))
         features = sorted(list(set(features)))
+
+        self.c2i = {c:i for i,c in enumerate(concepts)}
+        self.f2i = {f:i for i,f in enumerate(features)}
 
         feature_space = defaultdict(lambda: defaultdict(list))
 
@@ -189,18 +196,21 @@ class Memory(object):
 
         return Taxonomy
 
-    def verbalize(self, concept, feature_phrase, templated=False):
+    def verbalize(self, concept, feature_phrase, article=True, templated=False):
         """
         Verbalizes a pair of concept and feature_phrase into natural language sentence.
         """
-        if concept in self.concepts:
-            article = self.lexicon[concept].article
+        if article:
+            if concept in self.concepts:
+                concept_prefix = self.lexicon[concept].article
+            else:
+                concept_prefix = engine.a(concept)
         else:
-            article = engine.a(concept)
+            concept_prefix = concept
 
         if templated:
             sentence = f"<c> {concept} </c> <p> {feature_phrase} </p>"
         else:
-            sentence = f"{article} {feature_phrase}."
+            sentence = f"{concept_prefix} {feature_phrase}."
 
         return sentence
