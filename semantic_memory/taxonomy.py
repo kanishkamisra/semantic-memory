@@ -1,4 +1,5 @@
 """Create a taxonomic organization"""
+
 from collections import defaultdict
 from typing import Iterable
 from .list_utils import intersect
@@ -53,9 +54,18 @@ class Node:
             for leaf in child.get_leaves():
                 yield leaf
 
-    def descendants(self):
+    def leaf_values(self):
         leaves = [leaf.value for leaf in self.get_leaves()]
         return leaves
+    
+    def descendants(self):
+        """recursively lists descendants of the current node. returns a generator"""
+        if not self.children:
+            yield self
+        for child in self.children:
+            for desc in child.descendants():
+                yield desc
+
 
     def siblings(self, return_self=False):
         if self.parent is None:

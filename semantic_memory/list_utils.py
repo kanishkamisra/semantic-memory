@@ -9,7 +9,7 @@ def intersect(lists: Iterable):
 
 def union(lists: Iterable):
     """Union between arbitrary number of lists."""
-    return set.union(*map(set, lists))
+    return sorted(set.union(*map(set, lists)))
 
 
 def argmin(lst: List) -> int:

@@ -9,6 +9,7 @@ import inflect
 import torch
 
 from nltk.corpus import wordnet as wn
+from ordered_set import OrderedSet
 from . import vsm, taxonomy, list_utils, vsm_utils
 
 engine = inflect.engine()
@@ -91,7 +92,7 @@ class Memory(object):
     def load_features(self):
         concepts = []
         features = []
-        concept_features = defaultdict(set)
+        concept_features = defaultdict(OrderedSet)
         self.feature_lexicon = defaultdict(Feature)
         # categories = defaultdict(list)
 
