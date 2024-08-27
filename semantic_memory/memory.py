@@ -23,6 +23,9 @@ class Concept:
     category: str
     sense: str
     article: str
+    singular: str
+    plural: str
+    generic: str
     id: str = field(init=False)
 
     def __post_init__(self):
@@ -119,8 +122,8 @@ class Memory(object):
         concepts = sorted(list(set(concepts)))
         features = sorted(list(set(features)))
 
-        self.c2i = {c:i for i,c in enumerate(concepts)}
-        self.f2i = {f:i for i,f in enumerate(features)}
+        self.c2i = {c: i for i, c in enumerate(concepts)}
+        self.f2i = {f: i for i, f in enumerate(features)}
 
         feature_space = defaultdict(lambda: defaultdict(list))
 
@@ -164,6 +167,9 @@ class Memory(object):
                             instance["category"],
                             item.name(),
                             instance["article"].replace("_", " "),
+                            instance["singular"],
+                            instance["plural"],
+                            instance["generic"],
                         )
                         self.categories[instance["category"]].append(
                             instance["concept"]

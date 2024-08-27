@@ -59,12 +59,12 @@ class Node:
         return leaves
     
     def descendants(self):
-        """recursively lists descendants of the current node. returns a generator"""
+        """recursively lists descendants of the current node along with intermediate nodes. returns a generator"""
         if not self.children:
             yield self
         for child in self.children:
-            for desc in child.descendants():
-                yield desc
+            yield child
+            yield from child.descendants()
 
 
     def siblings(self, return_self=False):
