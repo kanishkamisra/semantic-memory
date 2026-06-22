@@ -73,7 +73,7 @@ class Memory(object):
     def __repr__(self):
         return f"Semantic Memory containing {len(self.concepts)} concepts and {len(self.features)} properties."
 
-    def similarity(self, s1, s2):
+    def similarity(self, s1, s2, feature_idx=None):
         """
         Take two lists of concepts and return their jaccard similarity (overlap in properties)
         """
@@ -82,6 +82,10 @@ class Memory(object):
 
         f1 = self.vectors(s1)
         f2 = self.vectors(s2)
+
+        if feature_idx is not None:
+            f1 = f1[:, feature_idx]
+            f2 = f2[:, feature_idx]
 
         sims = vsm_utils.jaccard(f1, f2)
 

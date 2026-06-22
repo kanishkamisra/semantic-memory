@@ -61,7 +61,7 @@ class Node:
     def descendants(self):
         """recursively lists descendants of the current node along with intermediate nodes. returns a generator"""
         if not self.children:
-            yield self
+            pass
         for child in self.children:
             yield child
             yield from child.descendants()
